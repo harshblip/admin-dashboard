@@ -1,8 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function DataTable() {
     const [data, setData] = useState([]);
-    const fetchemployis = async () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [recordsPerPage] = useState(10);
+    useEffect(() => {
+        fetchEmployis();
+    }, [])
+
+    const indexOfLastRecord = currentPage * recordsPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+
+    const fetchEmployis = async () => {
         const url = "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json";
         const options = {
             method: 'GET',
@@ -12,32 +21,36 @@ export default function DataTable() {
             const result = await response.json();
             const data = result;
             setData(data);
-            console.log(data)
-        } catch(error){
+            console.log(data);
+
+        } catch (error) {
             console.error(error);
         }
     };
     return (
-        <table className="table" fetchemployis>
-            <thead>
-                <tr>
-                    <th scope='col'>ID</th>
-                    <th scope='col'>First Name</th>
-                    <th scope='col'>Last Name</th>
-                    <th scope='col'>City</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                {data.map(item => (
+        <div className='ml-24 mr-4'>
+            <table className='table'>
+                <thead>
                     <tr>
-                        <td>{item.id} </td>
-                        <td>{item.name} </td>
-                        <td>{item.email} </td>
-                        <td>{item.role} </td>
+                        <input type='checkbox' alt='check' />
+                        <th scope='col'>Name</th>
+                        <th scope='col'>Email</th>
+                        <th scope='col'>Role</th>
+                        <th scope='col'>Actions</th>
+
                     </tr>
-                ))}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {data.map(item => (
+                        <tr>
+                            <input type='checkbox' alt='check' />
+                            <td>{item.name} </td>
+                            <td>{item.email} </td>
+                            <td>{item.role} </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     )
 }
