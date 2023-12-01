@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -9,6 +11,8 @@ module.exports = {
         "notosans": ['Noto Sans Mandaic', 'sans-serif'],
         "memefont": ['Bebas Neue', 'sans-serif'],
         "nunito": ['Nunito', 'sans-serif'],
+        "nunisans": ['Nunito Sans', 'sans-serif'],
+        "rubik": ['Rubik', "sans-serif"],
       }
     },
   },

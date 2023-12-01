@@ -1,0 +1,6 @@
+- pagination
+- next-page, prev-page, last-page, first-page.
+- click to background and "delete selected" button
+- when clicked on first checkbox all visible fields get selected 
+- delete all selected records simultaneorusly (pagination may affect)
+- touch edit icon to edit and then save

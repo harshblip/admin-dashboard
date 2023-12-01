@@ -45,9 +45,9 @@ table {
 th,
 td, input {
   padding: 15px;
-  border: 1px solid black;
+  border: 1px solid #abaaaa;
 }
 
 tr {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgb(171, 170, 170);
 }
