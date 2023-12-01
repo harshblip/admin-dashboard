@@ -3,4 +3,5 @@
 - click to background and "delete selected" button
 - when clicked on first checkbox all visible fields get selected 
 - delete all selected records simultaneorusly (pagination may affect)
+- when edit is clicked save button should appear and vice versa
 - touch edit icon to edit and then save
