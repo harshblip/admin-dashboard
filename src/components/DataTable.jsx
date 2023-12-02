@@ -16,7 +16,6 @@ export default function DataTable() {
     const [editingRows, setEditingRows] = useState({});
     const [selectedRow, setSelectedRow] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [editingRow, setEditingRow] = useState(null);
     const [check, setCheck] = useState(false);
 
     useEffect(() => {
@@ -100,22 +99,27 @@ export default function DataTable() {
 
     return (
         <>
-            <input
-                type='text'
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyUp={(e) => {
-                    if (e.key === 'Enter') {
-                        handleSearch();
-                    }
-                }}
-                placeholder='Search'
-                className='border border-[#abaaaa] text-black/70 ml-6 mt-4 w-[24rem] h-[2.5rem] rounded-md'
-            />
+            <div className='flex justify-between'>
+                <input
+                    type='text'
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyUp={(e) => {
+                        if (e.key === 'Enter') {
+                            handleSearch();
+                        }
+                    }}
+                    placeholder='Search'
+                    className='border border-[#abaaaa] text-black/70 ml-6 mt-4 w-[24rem] h-[2.5rem] rounded-md'
+                />
+                <div className='mr-10 mt-6 border border-[#abaaaa] h-10 w-10 rounded-lg bg-red-400 text-white'>
+                    <DeleteOutlined className='ml-[0.6rem] mt-1 text-xl'/>
+                </div>
+            </div>
             <div className='ml-6 mr-6 rounded-lg mt-4 border border-[#abaaaa] text-black/70 font-bold'>
                 <table className='table'>
-                    <thead>
-                        <tr className='hover:bg-slate-100 transition-all'>
+                    <thead className='font-rubik text-xl underline border border-black'>
+                        <tr className='hover:bg-slate-100 transition-all border border-black'>
                             <input
                                 type='checkbox'
                                 alt='check'
@@ -128,15 +132,15 @@ export default function DataTable() {
                                     }
                                 }}
                             />
-                            <th scope='col'>Name</th>
-                            <th scope='col'>Email</th>
-                            <th scope='col'>Role</th>
-                            <th scope='col'>Actions</th>
+                            <th scope='col' className='border border-black'>Name</th>
+                            <th scope='col' className='border border-black'>Email</th>
+                            <th scope='col' className='border border-black'>Role</th>
+                            <th scope='col' className='border border-black'>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {currentItems.map((item, index) => (
-                            <tr className={editingRow===index ? 'faded' : ''}>
+                            <tr className={selectedRow.includes(index) ? 'faded' : ''}>
                                 <input
                                     type='checkbox'
                                     alt='check'
@@ -147,7 +151,6 @@ export default function DataTable() {
                                             setCheck(!check);
                                             console.log(check);
                                             setSelectedRow(prevState => [...prevState, index]);
-                                            // editingRow(index);
                                         } else {
                                             setSelectedRow(prevState => prevState.filter(i => i !== index));
                                         }
@@ -209,11 +212,11 @@ export default function DataTable() {
                                         onClick={() => setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))}>
                                         {
                                             editingRows[index] ?
-                                                <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md' onClick={() => setEditingRow(null)}>
-                                                    <CheckSquareOutlined style={{ padding: '2px' }}  />
+                                                <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md'>
+                                                    <CheckSquareOutlined style={{ padding: '2px' }} />
                                                 </div> :
-                                                <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md' onClick={() => setEditingRow(index)}>
-                                                    <FormOutlined  />
+                                                <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md'>
+                                                    <FormOutlined />
                                                 </div>
                                         }
                                     </button>

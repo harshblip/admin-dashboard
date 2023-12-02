@@ -126,3 +126,10 @@ tr {
 .faded {
   background-color: #eeecec;
 }
+
+input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-left: 1.5rem;
+  margin-right: -0.75rem;
+}
