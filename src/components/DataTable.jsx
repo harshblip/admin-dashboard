@@ -84,6 +84,12 @@ export default function DataTable() {
         setData(filteredData);
     };
 
+    const handleCellBlur = (e, index, property) => {
+        const newData = [...data];
+        newData[index][property] = e.target.textContent;
+        setData(newData);
+    }
+
     // {
     //     selectedRow.map((index) => {
     //         console.log(index);
@@ -108,7 +114,10 @@ export default function DataTable() {
                 <table className='table'>
                     <thead>
                         <tr className='hover:bg-slate-100 transition-all'>
-                            <input type='checkbox' alt='check' className='ml-4 mt-4'
+                            <input
+                                type='checkbox'
+                                alt='check'
+                                className='ml-4 mt-4'
                                 onChange={(e) => {
                                     if (e.target.checked) {
                                         setSelectedRow(data.map((_, index) => index));
@@ -117,7 +126,7 @@ export default function DataTable() {
                                     }
                                 }}
                             />
-                            <th scope='col' >Name</th>
+                            <th scope='col'>Name</th>
                             <th scope='col'>Email</th>
                             <th scope='col'>Role</th>
                             <th scope='col'>Actions</th>
@@ -126,7 +135,10 @@ export default function DataTable() {
                     <tbody>
                         {currentItems.map((item, index) => (
                             <tr className='hover:bg-slate-100 transition-all'>
-                                <input type='checkbox' alt='check' className='ml-2 mt-4'
+                                <input
+                                    type='checkbox'
+                                    alt='check'
+                                    className='ml-2 mt-4'
                                     checked={selectedRow.includes(index)}
                                     onClick={(e) => {
                                         if (e.target.checked) {
@@ -136,11 +148,38 @@ export default function DataTable() {
                                         }
                                     }}
                                 />
-                                <td contentEditable={editingRows[index]}>{item.name} </td>
-                                <td contentEditable={editingRows[index]}>{item.email} </td>
-                                <td contentEditable={editingRows[index]}>{item.role} </td>
+                                <td
+                                    contentEditable={editingRows[index]}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            e.preventDefault();
+                                            handleCellBlur(e, index, 'name')
+                                            setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))
+                                            {
+                                                editingRows[index] ? <CheckSquareOutlined /> : <FormOutlined />
+                                            }
+                                        }
+                                    }
+                                    }
+                                    onBlur={(e) => handleCellBlur(e, index, 'name')}
+                                >
+                                    {item.name}
+                                </td>
+                                <td
+                                    contentEditable={editingRows[index]}
+                                    onBlur={(e) => handleCellBlur(e, index, 'email')}
+                                >
+                                    {item.email}
+                                </td>
+                                <td
+                                    contentEditable={editingRows[index]}
+                                    onBlur={(e) => handleCellBlur(e, index, 'role')}
+                                >
+                                    {item.role}
+                                </td>
                                 <td className='flex space-x-4'>
-                                    <button onClick={() => setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))}>
+                                    <button
+                                        onClick={() => setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))}>
                                         {
                                             editingRows[index] ?
                                                 <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md'>
@@ -152,7 +191,10 @@ export default function DataTable() {
                                         }
                                     </button>
                                     <button>
-                                        <div className='hover:bg-green-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md ' onClick={() => handleDelete(index)}>
+                                        <div
+                                            className='hover:bg-green-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md '
+                                            onClick={() => handleDelete(index)}
+                                        >
                                             <DeleteOutlined style={{ color: 'red' }} />
                                         </div>
                                     </button>
@@ -162,7 +204,7 @@ export default function DataTable() {
                     </tbody>
                 </table>
                 <div className='flex mt-4 justify-between'>
-                    <button className='p-2 mb-4 bg-red-500 text-white font-mono font-normal rounded-lg'
+                    <button className='p-2 mb-4 ml-4 bg-red-500 text-white font-mono font-normal rounded-lg'
                         onClick={() => handleDeleteSelected()}
                     >
                         Delete Selected
