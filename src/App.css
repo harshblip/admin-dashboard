@@ -40,14 +40,50 @@
 
 table {
   width: 100%;
+  border-collapse: collapse;
 }
 
 th,
-td, input {
+td,
+input {
   padding: 15px;
   border: 1px solid #abaaaa;
 }
 
 tr {
   border-bottom: 1px solid rgb(171, 170, 170);
+  transition: all .5s ease-in;
+}
+
+.item {
+  -webkit-animation: fadein .3s linear forwards;
+  animation: fadein .3s linear forwards;
+  padding: 10px;
+}
+.item-fadeout{
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  -webkit-animation: fadeout .3s linear forwards;
+  animation: fadeout .3s linear forwards;
+}
+  
+@-webkit-keyframes fadein {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+  
+@keyframes fadein {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+  
+@-webkit-keyframes fadeout {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+  
+@keyframes fadeout {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
 }

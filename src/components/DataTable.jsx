@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { DeleteOutlined, FormOutlined, CheckSquareOutlined } from '@ant-design/icons';
+import { DeleteOutlined, 
+    FormOutlined, 
+    CheckSquareOutlined, 
+    DoubleLeftOutlined, 
+    DoubleRightOutlined, 
+    LeftOutlined, 
+    RightOutlined } from '@ant-design/icons';
 
 export default function DataTable() {
     const [data, setData] = useState([]);
@@ -21,7 +27,7 @@ export default function DataTable() {
             const result = await response.json();
             const data = result;
             setData(data);
-            console.log(data);
+            // console.log(data);
         } catch (error) {
             console.error(error);
         }
@@ -36,8 +42,27 @@ export default function DataTable() {
     };
 
     const handleDeleteSelected = () => {
-        setData(data.filter((item, index) => !selectedRow.includes(index)));
+        console.log('hi')
+        setData(data => data.filter((item, index) => !selectedRow.includes(index)));
+        setSelectedRow([]);
+        // currentItems = data;
     }
+
+    const handleFirstPage = () => {
+        setCurrentPage(1);
+    };
+
+    const handlePreviousPage = () => {
+        setCurrentPage(prevPage => prevPage > 1 ? prevPage - 1 : 1);
+    };
+
+    const handleNextPage = () => {
+        setCurrentPage(prevPage => prevPage < totalPages ? prevPage + 1 : totalPages);
+    };
+
+    const handleLastPage = () => {
+        setCurrentPage(totalPages);
+    };
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -45,11 +70,18 @@ export default function DataTable() {
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
+
+    // {
+    //     selectedRow.map((index) => {
+    //         console.log(index);
+    //     })
+    // }
+
     return (
         <div className='ml-6 mr-6 rounded-lg mt-10 border border-[#abaaaa] text-black/70 font-bold'>
             <table className='table'>
                 <thead>
-                    <tr>
+                    <tr className='hover:bg-slate-100 transition-all'>
                         <input type='checkbox' alt='check' className='ml-4 mt-4'
                             onChange={(e) => {
                                 if (e.target.checked) {
@@ -67,8 +99,17 @@ export default function DataTable() {
                 </thead>
                 <tbody>
                     {currentItems.map((item, index) => (
-                        <tr>
-                            <input type='checkbox' alt='check' className='ml-2 mt-4' />
+                        <tr className='hover:bg-slate-100 transition-all'>
+                            <input type='checkbox' alt='check' className='ml-2 mt-4'
+                                checked={selectedRow.includes(index)}
+                                onClick={(e) => {
+                                    if (e.target.checked) {
+                                        setSelectedRow(prevState => [...prevState, index]);
+                                    } else {
+                                        setSelectedRow(prevState => prevState.filter(i => i !== index));
+                                    }
+                                }}
+                            />
                             <td contentEditable={editingRows[index]}>{item.name} </td>
                             <td contentEditable={editingRows[index]}>{item.email} </td>
                             <td contentEditable={editingRows[index]}>{item.role} </td>
@@ -85,7 +126,7 @@ export default function DataTable() {
                                     }
                                 </button>
                                 <button>
-                                    <div className='hover:bg-green-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md' onClick={() => handleDelete(index)}>
+                                    <div className='hover:bg-green-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md ' onClick={() => handleDelete(index)}>
                                         <DeleteOutlined style={{ color: 'red' }} />
                                     </div>
                                 </button>
@@ -95,11 +136,13 @@ export default function DataTable() {
                 </tbody>
             </table>
             <div className='mt-4 justify-around'>
-                <button className='border border-[#abaaaa] p-2 bg-red-500 text-white font-mono  rounded-lg'
-                    onClick={() => handleDeleteSelected}
+                <button className='p-2 mb-4 bg-red-500 text-white font-mono font-normal rounded-lg'
+                    onClick={() => handleDeleteSelected()}
                 >
                     Delete Selected
                 </button>
+                <DoubleLeftOutlined  onClick={() => handleFirstPage()} className='border ml-4 mr-4'/>
+                <LeftOutlined onClick={() => handlePreviousPage()} className='border mr-4'/>
                 {pageNumbers.map((index) => {
                     return (
                         <button
@@ -112,6 +155,8 @@ export default function DataTable() {
                         </button>
                     );
                 })}
+                <RightOutlined onClick={() => handleNextPage()} className='border mr-4'/>
+                <DoubleRightOutlined onClick={() => handleLastPage()} className='border mr-4'/>
             </div>
         </div>
     );
