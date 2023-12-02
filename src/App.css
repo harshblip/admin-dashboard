@@ -87,3 +87,17 @@ tr {
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+.first-page {
+  border: #abaaaa;
+  margin-left: 2rem;
+  margin-right: 4px;
+}
+
+.previous-page, 
+.next-page, 
+.last-page {
+  border: #abaaaa;
+  margin-right: 4px;
+  padding: 4px;
+}
