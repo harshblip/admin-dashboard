@@ -52,7 +52,7 @@ input {
 
 tr {
   border-bottom: 1px solid rgb(171, 170, 170);
-  transition: all .5s ease-in;
+  transition: all .25s ease-in;
 }
 
 .item {
@@ -60,32 +60,53 @@ tr {
   animation: fadein .3s linear forwards;
   padding: 10px;
 }
-.item-fadeout{
+
+.item-fadeout {
   display: flex;
   align-items: center;
   padding: 10px;
   -webkit-animation: fadeout .3s linear forwards;
   animation: fadeout .3s linear forwards;
 }
-  
+
 @-webkit-keyframes fadein {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
-  
+
 @keyframes fadein {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
-  
+
 @-webkit-keyframes fadeout {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
-  
+
 @keyframes fadeout {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 .first-page {
@@ -94,10 +115,14 @@ tr {
   margin-right: 4px;
 }
 
-.previous-page, 
-.next-page, 
+.previous-page,
+.next-page,
 .last-page {
   border: #abaaaa;
   margin-right: 4px;
   padding: 4px;
+}
+
+.faded {
+  background-color: #eeecec;
 }

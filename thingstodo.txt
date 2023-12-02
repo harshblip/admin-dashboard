@@ -1,4 +1,2 @@
 - when clicked on first checkbox all visible fields get selected
-- when clicked background changes
-- when clicked edit option, other fields get faded
 - try animation

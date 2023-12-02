@@ -16,6 +16,8 @@ export default function DataTable() {
     const [editingRows, setEditingRows] = useState({});
     const [selectedRow, setSelectedRow] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [editingRow, setEditingRow] = useState(null);
+    const [check, setCheck] = useState(false);
 
     useEffect(() => {
         fetchEmployis();
@@ -134,15 +136,18 @@ export default function DataTable() {
                     </thead>
                     <tbody>
                         {currentItems.map((item, index) => (
-                            <tr className='hover:bg-slate-100 transition-all'>
+                            <tr className={editingRow===index ? 'faded' : ''}>
                                 <input
                                     type='checkbox'
                                     alt='check'
-                                    className='ml-2 mt-4'
+                                    className='ml-2 mt-4 bt'
                                     checked={selectedRow.includes(index)}
                                     onClick={(e) => {
                                         if (e.target.checked) {
+                                            setCheck(!check);
+                                            console.log(check);
                                             setSelectedRow(prevState => [...prevState, index]);
+                                            // editingRow(index);
                                         } else {
                                             setSelectedRow(prevState => prevState.filter(i => i !== index));
                                         }
@@ -167,12 +172,34 @@ export default function DataTable() {
                                 </td>
                                 <td
                                     contentEditable={editingRows[index]}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            e.preventDefault();
+                                            handleCellBlur(e, index, 'email')
+                                            setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))
+                                            {
+                                                editingRows[index] ? <CheckSquareOutlined /> : <FormOutlined />
+                                            }
+                                        }
+                                    }
+                                    }
                                     onBlur={(e) => handleCellBlur(e, index, 'email')}
                                 >
                                     {item.email}
                                 </td>
                                 <td
                                     contentEditable={editingRows[index]}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            e.preventDefault();
+                                            handleCellBlur(e, index, 'role')
+                                            setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))
+                                            {
+                                                editingRows[index] ? <CheckSquareOutlined /> : <FormOutlined />
+                                            }
+                                        }
+                                    }
+                                    }
                                     onBlur={(e) => handleCellBlur(e, index, 'role')}
                                 >
                                     {item.role}
@@ -182,20 +209,20 @@ export default function DataTable() {
                                         onClick={() => setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))}>
                                         {
                                             editingRows[index] ?
-                                                <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md'>
-                                                    <CheckSquareOutlined style={{ padding: '2px' }} />
+                                                <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md' onClick={() => setEditingRow(null)}>
+                                                    <CheckSquareOutlined style={{ padding: '2px' }}  />
                                                 </div> :
-                                                <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md'>
-                                                    <FormOutlined />
+                                                <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md' onClick={() => setEditingRow(index)}>
+                                                    <FormOutlined  />
                                                 </div>
                                         }
                                     </button>
                                     <button>
                                         <div
-                                            className='hover:bg-green-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md '
+                                            className='hover:bg-red-500 hover:text-white text-red-500 transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md '
                                             onClick={() => handleDelete(index)}
                                         >
-                                            <DeleteOutlined style={{ color: 'red' }} />
+                                            <DeleteOutlined />
                                         </div>
                                     </button>
                                 </td>
