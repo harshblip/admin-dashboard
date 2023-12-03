@@ -60,9 +60,10 @@ export default function ArrayData({ selectedRow, setCount, count, setSelectedRow
 
   return (
     <>
-        <tbody>
-          {currentItems.map((item, index) => (
-            <tr className={selectedRow.includes(index) ? 'faded' : ''}>
+      <tbody>
+        {currentItems.map((item, index) => (
+          <tr className={selectedRow.includes(index) ? 'faded' : ''}>
+            <td className='w-[15rem]'>
               <input
                 type='checkbox'
                 alt='check'
@@ -80,82 +81,86 @@ export default function ArrayData({ selectedRow, setCount, count, setSelectedRow
                   }
                 }}
               />
-              <td
-                contentEditable={editingRows[index]}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleCellBlur(e, index, 'name')
-                    setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))
-                    {
-                      editingRows[index] ? <CheckSquareOutlined /> : <FormOutlined />
-                    }
-                  }
-                }
-                }
-                onBlur={(e) => handleCellBlur(e, index, 'name')}
-              >
-                {item.name}
-              </td>
-              <td
-                contentEditable={editingRows[index]}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleCellBlur(e, index, 'email')
-                    setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))
-                    {
-                      editingRows[index] ? <CheckSquareOutlined /> : <FormOutlined />
-                    }
-                  }
-                }
-                }
-                onBlur={(e) => handleCellBlur(e, index, 'email')}
-              >
-                {item.email}
-              </td>
-              <td
-                contentEditable={editingRows[index]}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    handleCellBlur(e, index, 'role')
-                    setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))
-                    {
-                      editingRows[index] ? <CheckSquareOutlined /> : <FormOutlined />
-                    }
-                  }
-                }
-                }
-                onBlur={(e) => handleCellBlur(e, index, 'role')}
-              >
-                {item.role}
-              </td>
-              <td className='flex space-x-4'>
-                <button
-                  onClick={() => setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))}>
+            </td>
+            <td
+              contentEditable={editingRows[index]}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleCellBlur(e, index, 'name')
+                  setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))
                   {
-                    editingRows[index] ?
-                      <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md'>
-                        <CheckSquareOutlined style={{ padding: '2px' }} />
-                      </div> :
-                      <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md'>
-                        <FormOutlined />
-                      </div>
+                    editingRows[index] ? <CheckSquareOutlined /> : <FormOutlined />
                   }
-                </button>
-                <button>
-                  <div
-                    className='hover:bg-red-500 hover:text-white text-red-500 transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md '
-                    onClick={() => handleDelete(index)}
-                  >
-                    <DeleteOutlined className='font-extrabold' />
-                  </div>
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+                }
+              }
+              }
+              onBlur={(e) => handleCellBlur(e, index, 'name')}
+              className='w-[25rem]'
+            >
+              {item.name}
+            </td>
+            <td
+              contentEditable={editingRows[index]}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleCellBlur(e, index, 'email')
+                  setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))
+                  {
+                    editingRows[index] ? <CheckSquareOutlined /> : <FormOutlined />
+                  }
+                }
+              }
+              }
+              onBlur={(e) => handleCellBlur(e, index, 'email')}
+              className='w-[25rem]'
+            >
+              {item.email}
+            </td>
+            <td
+              contentEditable={editingRows[index]}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleCellBlur(e, index, 'role')
+                  setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))
+                  {
+                    editingRows[index] ? <CheckSquareOutlined /> : <FormOutlined />
+                  }
+                }
+              }
+              }
+              onBlur={(e) => handleCellBlur(e, index, 'role')}
+              className='w-[200px]'
+            >
+              {item.role}
+            </td>
+            <td className='flex space-x-4'>
+              <button
+                onClick={() => setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))}>
+                {
+                  editingRows[index] ?
+                    <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md'>
+                      <CheckSquareOutlined style={{ padding: '2px' }} />
+                    </div> :
+                    <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md'>
+                      <FormOutlined />
+                    </div>
+                }
+              </button>
+              <button>
+                <div
+                  className='hover:bg-red-500 hover:text-white text-red-500 transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md '
+                  onClick={() => handleDelete(index)}
+                >
+                  <DeleteOutlined className='font-extrabold' />
+                </div>
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
       <div className='flex mt-4 justify-between'>
         <p className='text-gray-400 font-medium font-rubik'>{count} row(s) out of {data.length} selected.</p>
         <button className='p-2 mb-4 ml-4 bg-red-500 text-white font-mono font-normal rounded-lg'
