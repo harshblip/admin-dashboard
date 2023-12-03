@@ -9,7 +9,7 @@ import {
   RightOutlined
 } from '@ant-design/icons';
 
-export default function ArrayData2({ selectedRow, setCount, count, setSelectedRow, editingRows, setEditingRows, oriArray, setoriArray }) {
+export default function ArrayData2({ selectedRow, setCount, count, setSelectedRow, editingRows, setEditingRows, oriArray, setoriArray, data, setData }) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
@@ -20,6 +20,7 @@ export default function ArrayData2({ selectedRow, setCount, count, setSelectedRo
 
   const handleDelete = (index) => {
     setoriArray(oriArray.filter((item, i) => i !== index));
+    setData(prevData => prevData.filter((item, i) => i !== index));
   };
 
   const handleDeleteSelected = () => {

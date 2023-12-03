@@ -134,6 +134,8 @@ export default function DataTable() {
                             setEditingRows={setEditingRows}
                             oriArray={oriArray}
                             setoriArray={setoriArray}
+                            data={data}
+                            setData={setData}
                         />
                         // console.log('here2')
                     )}
