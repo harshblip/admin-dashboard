@@ -25,7 +25,7 @@ export default function ArrayData({ selectedRow, setCount, count, setSelectedRow
 
   const handleDeleteSelected = () => {
     console.log('hi')
-    setData(selectedRow => selectedRow.filter((item, index) => !selectedRow.includes(index)));
+    setData(data => data.filter((item, index) => !selectedRow.includes(index)));
     setSelectedRow([]);
     // currentItems = data;
   }
@@ -161,14 +161,16 @@ export default function ArrayData({ selectedRow, setCount, count, setSelectedRow
           </tr>
         ))}
       </tbody>
-      <div className='flex mt-4 justify-between'>
-        <p className='text-gray-400 font-medium font-rubik'>{count} row(s) out of {data.length} selected.</p>
-        <button className='p-2 mb-4 ml-4 bg-red-500 text-white font-mono font-normal rounded-lg'
-          onClick={() => handleDeleteSelected()}
-        >
-          Delete Selected
-        </button>
-        <div>
+      <div className='absolute ml-4 flex mt-4'>
+        <div className='flex'>
+          <p className='text-gray-400 font-medium font-rubik'>{count} row(s) out of {data.length} selected.</p>
+          <button className='p-2 mb-4 ml-4 bg-red-500 text-white font-mono font-normal rounded-lg'
+            onClick={() => handleDeleteSelected()}
+          >
+            Delete Selected
+          </button>
+        </div>
+        <div className='ml-[44rem]'>
           {/* border ml-4 mr-4 */}
           <DoubleLeftOutlined onClick={() => handleFirstPage()} className='first-page' />
           {/* border mr-4 */}
