@@ -13,6 +13,7 @@ export default function DataTable() {
     const [searchQuery, setSearchQuery] = useState('');
     const [count, setCount] = useState(0);
     const [view, setView] = useState('viu');
+    const [checkedState, setCheckedState] = useState(false);
 
     useEffect(() => {
         fetchEmployis();
@@ -43,7 +44,7 @@ export default function DataTable() {
     const handleSearch = () => {
         console.log('done')
         setView('viu');
-        const filteredData = data.filter(item =>
+        const filteredData = oriArray.filter(item =>
             Object.values(item).some(val =>
                 String(val).toLowerCase().includes(searchQuery.toLowerCase())
             )
@@ -73,6 +74,7 @@ export default function DataTable() {
                 <input
                     type='text'
                     value={searchQuery}
+                    checked={checkedState}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onKeyUp={(e) => {
                         if (e.key === 'Enter') {
@@ -122,6 +124,8 @@ export default function DataTable() {
                             setEditingRows={setEditingRows}
                             data={data}
                             setData={setData}
+                            checkedState={checkedState}
+                            setCheckedState={setCheckedState}
                         />
                         // console.log('here')
                     ) : (
@@ -136,6 +140,8 @@ export default function DataTable() {
                             setoriArray={setoriArray}
                             data={data}
                             setData={setData}
+                            checkedState={checkedState}
+                            setCheckedState={setCheckedState}
                         />
                         // console.log('here2')
                     )}
