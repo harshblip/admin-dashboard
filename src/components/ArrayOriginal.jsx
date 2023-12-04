@@ -20,11 +20,13 @@ export default function ArrayData({ selectedRow, setCount, count, setSelectedRow
 
   const handleDelete = (index) => {
     setoriArray(data.filter((item, i) => i !== index));
+    setData(data.filter((item, i) => i !== index));
   };
 
   const handleDeleteSelected = () => {
     console.log('hi')
     setoriArray(data => data.filter((item, index) => !selectedRow.includes(index)));
+    setData(data => data.filter((item, index) => !selectedRow.includes(index)));
     setSelectedRow([]);
     // setCount(0);
     // currentItems = data;
