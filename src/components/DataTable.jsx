@@ -39,7 +39,7 @@ export default function DataTable() {
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = oriArray.slice(indexOfFirstItem, indexOfLastItem);
 
     const handleSearch = () => {
         console.log('done')
@@ -122,10 +122,10 @@ export default function DataTable() {
                             setSelectedRow={setSelectedRow}
                             editingRows={editingRows}
                             setEditingRows={setEditingRows}
+                            oriArray={oriArray}
+                            setoriArray={setoriArray}
                             data={data}
                             setData={setData}
-                            checkedState={checkedState}
-                            setCheckedState={setCheckedState}
                         />
                         // console.log('here')
                     ) : (
@@ -140,8 +140,6 @@ export default function DataTable() {
                             setoriArray={setoriArray}
                             data={data}
                             setData={setData}
-                            checkedState={checkedState}
-                            setCheckedState={setCheckedState}
                         />
                         // console.log('here2')
                     )}

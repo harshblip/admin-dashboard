@@ -58,6 +58,7 @@ export default function ArrayData2({ selectedRow, setCount, count, setSelectedRo
     const newData = [...oriArray];
     newData[index][property] = e.target.textContent;
     setoriArray(newData);
+    setData(newData);
   }
 
   return (

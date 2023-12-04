@@ -9,26 +9,30 @@ import {
   RightOutlined
 } from '@ant-design/icons';
 
-export default function ArrayData({ selectedRow, setCount, count, setSelectedRow, editingRows, setEditingRows, data, setData }) {
-
+export default function ArrayData({ selectedRow, setCount, count, setSelectedRow, editingRows, setEditingRows, data, setData, oriArray, setoriArray }) {
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
-  const [searchQuery, setSearchQuery] = useState('');
 
   const handleClick = (event) => {
     setCurrentPage(Number(event.target.id));
   };
 
   const handleDelete = (index) => {
-    setData(data.filter((item, i) => i !== index));
+    setoriArray(data.filter((item, i) => i !== index));
   };
 
   const handleDeleteSelected = () => {
     console.log('hi')
-    setData(data => data.filter((item, index) => !selectedRow.includes(index)));
+    setoriArray(data => data.filter((item, index) => !selectedRow.includes(index)));
     setSelectedRow([]);
+    // setCount(0);
     // currentItems = data;
   }
+
+{data.map((index) => {
+  console.log(index);
+})}
 
   const handleFirstPage = () => {
     setCurrentPage(1);
@@ -55,6 +59,7 @@ export default function ArrayData({ selectedRow, setCount, count, setSelectedRow
   const handleCellBlur = (e, index, property) => {
     const newData = [...data];
     newData[index][property] = e.target.textContent;
+    setoriArray(newData);
     setData(newData);
   }
 
@@ -136,7 +141,7 @@ export default function ArrayData({ selectedRow, setCount, count, setSelectedRow
             >
               {item.role}
             </td>
-            <td className='flex space-x-4'>
+            <td className='space-x-4'>
               <button
                 onClick={() => setEditingRows(prevState => ({ ...prevState, [index]: !prevState[index] }))}>
                 {
@@ -144,7 +149,7 @@ export default function ArrayData({ selectedRow, setCount, count, setSelectedRow
                     <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md'>
                       <CheckSquareOutlined style={{ padding: '2px' }} />
                     </div> :
-                    <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md'>
+                    <div className='hover:bg-purple-400 hover:text-white transition-all h-10 w-10 border border-[#abaaaa] p-1 rounded-md ml-[4rem]'>
                       <FormOutlined />
                     </div>
                 }
@@ -163,7 +168,8 @@ export default function ArrayData({ selectedRow, setCount, count, setSelectedRow
       </tbody>
       <div className='absolute ml-4 flex mt-4'>
         <div className='flex'>
-          <p className='text-gray-400 font-medium font-rubik'>{count} row(s) out of {data.length} selected.</p>
+
+          <p className='text-gray-400 font-medium font-rubik'>{count} row(s) out of {oriArray.length} selected.</p>
           <button className='p-2 mb-4 ml-4 bg-red-500 text-white font-mono font-normal rounded-lg'
             onClick={() => handleDeleteSelected()}
           >
