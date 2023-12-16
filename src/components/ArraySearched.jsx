@@ -26,6 +26,7 @@ export default function ArrayData2({ selectedRow, setCount, count, setSelectedRo
   const handleDeleteSelected = () => {
     console.log('hi')
     setoriArray(data => data.filter((item, index) => !selectedRow.includes(index)));
+    setData(data => data.filter((item, index) => !selectedRow.includes(index)));
     setSelectedRow([]);
     setCheckedState(!checkedState);
     setCount(0);

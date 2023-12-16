@@ -52,9 +52,9 @@ export default function DataTable() {
         setoriArray(filteredData);
     };
 
-    oriArray.map((index) => {
-        console.log(index);
-    })
+    // oriArray.map((index) => {
+    //     console.log(index);
+    // })
 
     const handleGoBack = () => {
         setoriArray([]);
@@ -117,9 +117,9 @@ export default function DataTable() {
                     {view === 'normal' ? (
                         < ArrayNormal
                             selectedRow={selectedRow}
+                            setSelectedRow={setSelectedRow}
                             setCount={setCount}
                             count={count}
-                            setSelectedRow={setSelectedRow}
                             editingRows={editingRows}
                             setEditingRows={setEditingRows}
                             oriArray={oriArray}
@@ -131,9 +131,9 @@ export default function DataTable() {
                     ) : (
                         <ArraySearched
                             selectedRow={selectedRow}
+                            setSelectedRow={setSelectedRow}
                             setCount={setCount}
                             count={count}
-                            setSelectedRow={setSelectedRow}
                             editingRows={editingRows}
                             setEditingRows={setEditingRows}
                             oriArray={oriArray}
