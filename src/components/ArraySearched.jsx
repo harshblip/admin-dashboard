@@ -20,18 +20,20 @@ export default function ArrayData2({ selectedRow, setCount, count, setSelectedRo
 
   const handleDelete = (index) => {
     setoriArray(oriArray.filter((item, i) => i !== index));
-    setData(prevData => prevData.filter((item, i) => i !== index));
+    setData(data.filter(item => !oriArray.includes(item)));
   };
 
   const handleDeleteSelected = () => {
     console.log('hi')
-    setoriArray(data => data.filter((item, index) => !selectedRow.includes(index)));
+    setoriArray(oriArray => oriArray.filter((item, index) => !selectedRow.includes(index)));
     setData(data => data.filter((item, index) => !selectedRow.includes(index)));
     setSelectedRow([]);
     setCheckedState(!checkedState);
     setCount(0);
     // currentItems = oriArray;
   }
+
+  console.log('arrSearched')
 
   const handleFirstPage = () => {
     setCurrentPage(1);
@@ -59,7 +61,7 @@ export default function ArrayData2({ selectedRow, setCount, count, setSelectedRo
     const newData = [...oriArray];
     newData[index][property] = e.target.textContent;
     setoriArray(newData);
-    setData(newData);
+    // setData(newData);
   }
 
   return (

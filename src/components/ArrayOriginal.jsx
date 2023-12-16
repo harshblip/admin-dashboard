@@ -9,8 +9,8 @@ import {
   RightOutlined
 } from '@ant-design/icons';
 
-export default function ArrayData({ selectedRow, setCount, count, setSelectedRow, editingRows, setEditingRows, data, setData, oriArray, setoriArray }) {
-  
+export default function ArrayData({ selectedRow, setCount, count, setSelectedRow, editingRows, setEditingRows, data, setData, oriArray, setoriArray, checkedState, setCheckedState }) {
+
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
@@ -19,26 +19,29 @@ export default function ArrayData({ selectedRow, setCount, count, setSelectedRow
   };
 
   const handleDelete = (index) => {
-    setoriArray(data.filter((item, i) => i !== index));
+    setoriArray(oriArray.filter((item, i) => i !== index));
     setData(data.filter((item, i) => i !== index));
   };
 
   const handleDeleteSelected = () => {
     console.log('hi')
-    setoriArray(data => data.filter((item, index) => !selectedRow.includes(index)));
+    setoriArray(oriArray => oriArray.filter((item, index) => !selectedRow.includes(index)));
     setData(data => data.filter((item, index) => !selectedRow.includes(index)));
     setSelectedRow([]);
+    setCheckedState(!checkedState);
     setCount(0);
     // currentItems = data;
   }
 
-{selectedRow.map((index) => {
-  console.log(index);
-})}
+  // {selectedRow.map((index) => {
+  //   console.log(index);
+  // })}
 
   const handleFirstPage = () => {
     setCurrentPage(1);
   };
+
+  console.log('arrOriginal');
 
   const handlePreviousPage = () => {
     setCurrentPage(prevPage => prevPage > 1 ? prevPage - 1 : 1);

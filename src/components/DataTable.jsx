@@ -44,7 +44,7 @@ export default function DataTable() {
     const handleSearch = () => {
         console.log('done')
         setView('viu');
-        const filteredData = oriArray.filter(item =>
+        const filteredData = data.filter(item =>
             Object.values(item).some(val =>
                 String(val).toLowerCase().includes(searchQuery.toLowerCase())
             )
@@ -61,7 +61,7 @@ export default function DataTable() {
         setSearchQuery('');
         setView('normal');
     }
-         
+
     // {
     //     selectedRow.map((index) => {
     //         console.log(index);
@@ -99,7 +99,7 @@ export default function DataTable() {
                                 className='ml-4 mt-4'
                                 onChange={(e) => {
                                     if (e.target.checked) {
-                                        setCount(count + 10);
+                                        setCount(currentItems.length);
                                         setSelectedRow(currentItems.slice(0, 10).map((_, index) => index));
                                     } else {
                                         setCount(0)
@@ -126,8 +126,9 @@ export default function DataTable() {
                             setoriArray={setoriArray}
                             data={data}
                             setData={setData}
+                            checkedState={checkedState}
+                            setCheckedState={setCheckedState}
                         />
-                        // console.log('here')
                     ) : (
                         <ArraySearched
                             selectedRow={selectedRow}
@@ -140,8 +141,9 @@ export default function DataTable() {
                             setoriArray={setoriArray}
                             data={data}
                             setData={setData}
+                            checkedState={checkedState}
+                            setCheckedState={setCheckedState}
                         />
-                        // console.log('here2')
                     )}
                 </table>
             </div>
